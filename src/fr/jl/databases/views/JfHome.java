@@ -23,7 +23,6 @@ public class JfHome extends javax.swing.JFrame {
         setLocationRelativeTo(null);  
         jTextFieldServer.setText("mysql-kica.alwaysdata.net");
         jTextFieldPort.setText("3306");
-        jTextFieldLogin.setText("kica_root");
     }
 
     /**
@@ -46,7 +45,7 @@ public class JfHome extends javax.swing.JFrame {
         jButtonConnect = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Export database");
+        setTitle("Databases tools");
         setResizable(false);
 
         jLabel1.setText("Serveur");
