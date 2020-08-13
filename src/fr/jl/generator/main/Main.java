@@ -4,7 +4,7 @@
  */
 package fr.jl.generator.main;
 
-import fr.jl.generator.views.JfConnection;
+import fr.jl.generator.views.JfGenerator;
 
 /**
  *
@@ -13,7 +13,7 @@ import fr.jl.generator.views.JfConnection;
 public class Main {
     
     public static void main(String[] args) {
-        new JfConnection();
+        new JfGenerator();
     }
     
 }
