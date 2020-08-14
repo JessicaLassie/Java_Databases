@@ -4,13 +4,14 @@
  */
 package fr.jl.generator.views;
 
-import fr.jl.generator.controller.GeneratorController;
+import fr.jl.generator.controllers.ConnectionController;
+import fr.jl.generator.controllers.GenerateController;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
@@ -21,7 +22,7 @@ import javax.swing.DefaultListModel;
  */
 public class JfGenerator extends javax.swing.JFrame {
 
-    Connection cnx = null;
+    private Connection cnx;
     
     /**
      * Creates new form JfGenerator
@@ -44,11 +45,16 @@ public class JfGenerator extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanelDatabase = new javax.swing.JPanel();
+        jButtonGenerate = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jListTables = new javax.swing.JList<>();
         jLabelDatabaseName = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jListColumns = new javax.swing.JList<>();
+        jButtonDisconnect = new javax.swing.JButton();
+        jLabelDatabaseView = new javax.swing.JLabel();
+        jLabelTables = new javax.swing.JLabel();
+        jLabelColumns = new javax.swing.JLabel();
         jPanelConnection = new javax.swing.JPanel();
         jTextFieldServer = new javax.swing.JTextField();
         jLabelServer = new javax.swing.JLabel();
@@ -66,6 +72,13 @@ public class JfGenerator extends javax.swing.JFrame {
         setTitle("Generator");
         setResizable(false);
 
+        jButtonGenerate.setText("Generate POJO");
+        jButtonGenerate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonGenerateActionPerformed(evt);
+            }
+        });
+
         jListTables.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jListTables.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
@@ -76,31 +89,64 @@ public class JfGenerator extends javax.swing.JFrame {
 
         jLabelDatabaseName.setText("database name");
 
+        jListColumns.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jListColumns.setToolTipText("");
         jScrollPane2.setViewportView(jListColumns);
+
+        jButtonDisconnect.setText("Disconnect");
+        jButtonDisconnect.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDisconnectActionPerformed(evt);
+            }
+        });
+
+        jLabelDatabaseView.setText("Database :");
+
+        jLabelTables.setText("Tables :");
+
+        jLabelColumns.setText("Columns :");
 
         javax.swing.GroupLayout jPanelDatabaseLayout = new javax.swing.GroupLayout(jPanelDatabase);
         jPanelDatabase.setLayout(jPanelDatabaseLayout);
         jPanelDatabaseLayout.setHorizontalGroup(
             jPanelDatabaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelDatabaseLayout.createSequentialGroup()
-                .addComponent(jLabelDatabaseName)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(jPanelDatabaseLayout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanelDatabaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelDatabaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(jPanelDatabaseLayout.createSequentialGroup()
+                            .addComponent(jLabelDatabaseView)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabelDatabaseName))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButtonGenerate)
+                    .addComponent(jLabelTables))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanelDatabaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelColumns)
+                    .addGroup(jPanelDatabaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonDisconnect, javax.swing.GroupLayout.Alignment.TRAILING)))
                 .addContainerGap())
         );
         jPanelDatabaseLayout.setVerticalGroup(
             jPanelDatabaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDatabaseLayout.createSequentialGroup()
-                .addComponent(jLabelDatabaseName)
-                .addGap(48, 48, 48)
+                .addContainerGap()
+                .addGroup(jPanelDatabaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonDisconnect)
+                    .addComponent(jLabelDatabaseName)
+                    .addComponent(jLabelDatabaseView))
+                .addGap(8, 8, 8)
+                .addGroup(jPanelDatabaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelTables)
+                    .addComponent(jLabelColumns))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelDatabaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 76, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addComponent(jButtonGenerate)
+                .addGap(20, 20, 20))
         );
 
         jLabelServer.setText("Serveur");
@@ -219,24 +265,27 @@ public class JfGenerator extends javax.swing.JFrame {
         char[] password = jPasswordField.getPassword();
 
         try {
-            cnx = GeneratorController.getConnection(server, port, database, login, password);
-            String[] types = {"TABLE"};
-            ResultSet res = cnx.getMetaData().getTables(null, null, "%", types);
-            ArrayList<String> listeTable = new ArrayList();
-            while(res.next()) {
-                String nomTable = res.getString(3);
-                listeTable.add(nomTable);
-            }
+            cnx = ConnectionController.getConnection(server, port, database, login, password);  
+        } catch (SQLException ex) {
+            Logger.getLogger(JfGenerator.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        if (cnx != null) {
             jPanelConnection.setVisible(false);
             jPanelDatabase.setVisible(true);
             jLabelDatabaseName.setText(database);
-            DefaultListModel<String> l1 = new DefaultListModel<>();  
-            for(String el : listeTable) {
-                l1.addElement(el);
-                jListTables.setModel(l1);
-            }         
-        } catch (SQLException ex) {
-            Logger.getLogger(JfGenerator.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                String[] types = {"TABLE"};
+                ResultSet res = cnx.getMetaData().getTables(null, null, "%", types);
+                DefaultListModel<String> dlm = new DefaultListModel<>(); 
+                while(res.next()) {
+                    String tableName = res.getString(3);
+                    dlm.addElement(tableName);
+                    jListTables.setModel(dlm);
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(JfGenerator.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
             
         
@@ -244,25 +293,46 @@ public class JfGenerator extends javax.swing.JFrame {
 
     private void jListTablesValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jListTablesValueChanged
         try {
-            Statement stmt=cnx.createStatement();
-            ArrayList<String> listCol=new ArrayList();
+            Statement stmt = cnx.createStatement();
             ResultSet res = stmt.executeQuery("Select * from " + jListTables.getSelectedValue());
-            ResultSetMetaData rsMetaData=res.getMetaData();
+            ResultSetMetaData rsMetaData = res.getMetaData();
+            DefaultListModel<String> dlm = new DefaultListModel<>();  
             for (int i = 1; i <= rsMetaData.getColumnCount(); i++) {
-                String nom=rsMetaData.getColumnName(i);
-                listCol.add(nom);
-            }
-            DefaultListModel<String> l1 = new DefaultListModel<>();  
-            for(String el : listCol) {
-                l1.addElement(el);
-                jListColumns.setModel(l1);
+                String columnName = rsMetaData.getColumnName(i);
+                dlm.addElement(columnName);
+                jListColumns.setModel(dlm);
             }
         } catch (SQLException ex) {
             System.out.println(ex);
-        }
-      
-        
+        }       
     }//GEN-LAST:event_jListTablesValueChanged
+
+    private void jButtonDisconnectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDisconnectActionPerformed
+        try {
+            cnx = ConnectionController.disconnect(cnx);
+        } catch (SQLException ex) {
+            Logger.getLogger(JfGenerator.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        if (cnx == null) {
+            jPanelConnection.setVisible(true);
+            jPanelDatabase.setVisible(false);
+            jTextFieldServer.setText("");
+            jTextFieldPort.setText("");
+            jTextFieldDatabase.setText("");
+            jTextFieldLogin.setText("");
+            jPasswordField.setText("");
+        }       
+    }//GEN-LAST:event_jButtonDisconnectActionPerformed
+
+    private void jButtonGenerateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGenerateActionPerformed
+        String tableName = jListTables.getSelectedValue();
+        try {
+            GenerateController.generate(tableName);
+        } catch (IOException ex) {
+            Logger.getLogger(JfGenerator.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButtonGenerateActionPerformed
 
     /**
      * @param args the command line arguments
@@ -304,12 +374,17 @@ public class JfGenerator extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonConnect;
+    private javax.swing.JButton jButtonDisconnect;
+    private javax.swing.JButton jButtonGenerate;
+    private javax.swing.JLabel jLabelColumns;
     private javax.swing.JLabel jLabelDatabase;
     private javax.swing.JLabel jLabelDatabaseName;
+    private javax.swing.JLabel jLabelDatabaseView;
     private javax.swing.JLabel jLabelLogin;
     private javax.swing.JLabel jLabelPassword;
     private javax.swing.JLabel jLabelPort;
     private javax.swing.JLabel jLabelServer;
+    private javax.swing.JLabel jLabelTables;
     private javax.swing.JList<String> jListColumns;
     private javax.swing.JList<String> jListTables;
     private javax.swing.JPanel jPanelConnection;
