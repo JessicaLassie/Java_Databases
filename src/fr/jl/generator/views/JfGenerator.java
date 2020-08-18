@@ -12,7 +12,6 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
@@ -328,9 +327,8 @@ public class JfGenerator extends javax.swing.JFrame {
 
     private void jButtonGenerateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGenerateActionPerformed
         String tableName = jListTables.getSelectedValue();
-        List<String> columnsList = (List<String>) jListColumns.getModel();
         try {
-            GenerateController.generate(tableName, columnsList);
+            GenerateController.generate(tableName, cnx);
         } catch (IOException ex) {
             Logger.getLogger(JfGenerator.class.getName()).log(Level.SEVERE, null, ex);
         }
