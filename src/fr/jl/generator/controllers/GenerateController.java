@@ -4,9 +4,7 @@
  */
 package fr.jl.generator.controllers;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
+import fr.jl.generator.utils.Utils;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -22,15 +20,9 @@ import java.util.Map;
  */
 public class GenerateController {
     
-    public static void generate(String tableName, Connection cnx) throws IOException {
+    public static String generateClass(String tableName, Connection cnx) throws IOException {
         
-        String className;
-        int pos = tableName.indexOf('_');        
-        if (pos == -1) {
-            className = tableName.substring(0,1).toUpperCase() + tableName.substring(1);
-        } else {
-            className = tableName.substring(0,1).toUpperCase() + tableName.substring(1,pos).toLowerCase() + tableName.substring(pos+1,pos+2).toUpperCase() + tableName.substring(pos+2).toLowerCase();
-        }
+        String className = Utils.createClassName(tableName);
         
         Map<String, String> typesMap = new HashMap<>();
         typesMap.put("ARRAY", "Array");
@@ -80,7 +72,9 @@ public class GenerateController {
         }
         
         String properties = "";
-        for (Map.Entry mapentry : attributesMap.entrySet()) {
+        String getters = "";
+        
+        for (Map.Entry mapentry : attributesMap.entrySet()) {   
             String attribute;
             int posAttribute = mapentry.getKey().toString().indexOf('_');        
             if (posAttribute == -1) {
@@ -88,10 +82,12 @@ public class GenerateController {
             } else {
                 attribute = mapentry.getKey().toString().substring(0,posAttribute).toLowerCase() + mapentry.getKey().toString().substring(posAttribute+1,posAttribute+2).toUpperCase() + mapentry.getKey().toString().substring(posAttribute+2).toLowerCase();
             }
+            String getterAttribute = attribute.substring(0,1).toUpperCase() + attribute.substring(1);
             properties += "private " + mapentry.getValue().toString() + " " + attribute + ";\n";
+            getters += "public " + mapentry.getValue().toString() + " get" + getterAttribute + "() {\n" + "\t" + "return " + attribute + ";\n}\n\n";
         }
-        
-        String content = "/*\n" +
+      
+        String generatedClass = "/*\n" +
         " * Copyright (C) Jessica LASSIE from 2020 to present\n" +
         " * All rights reserved\n" +
         " */\n" +
@@ -102,28 +98,18 @@ public class GenerateController {
         " *\n" +
         " * @author Jessica LASSIE\n" +
         " */\n" +
+        "\n" +
         "public class " + className + " {\n" +
         "\n" +
         properties +
         "\n" +
+        "public " + className + "() {\n" +
+        "}\n" +
+        "\n" +
+        getters +
         "}"
         ;
         
-        File file = new File("C:/Users/Jessica/Downloads/" + className + ".java");
-        file.createNewFile();
-        
-        FileWriter fw = new FileWriter(file.getAbsoluteFile());
-        BufferedWriter bw = new BufferedWriter(fw);
-        bw.write(content);
-        bw.close();
-   
-        /*
-        if (fichier.createNewFile()) {
-          System.out.println("Le fichier a été créé");
-        } else {
-          System.out.println("Erreur, Impossible de créer ce fichier");
-        }
-*/
-    }
-    
+        return generatedClass;
+    }  
 }

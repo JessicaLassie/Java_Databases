@@ -5,6 +5,7 @@
 package fr.jl.generator.views;
 
 import fr.jl.generator.controllers.ConnectionController;
+import fr.jl.generator.controllers.FileController;
 import fr.jl.generator.controllers.GenerateController;
 import java.io.IOException;
 import java.sql.Connection;
@@ -55,6 +56,9 @@ public class JfGenerator extends javax.swing.JFrame {
         jLabelDatabaseView = new javax.swing.JLabel();
         jLabelTables = new javax.swing.JLabel();
         jLabelColumns = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTextAreaResult = new javax.swing.JTextArea();
+        jButtonSave = new javax.swing.JButton();
         jPanelConnection = new javax.swing.JPanel();
         jTextFieldServer = new javax.swing.JTextField();
         jLabelServer = new javax.swing.JLabel();
@@ -106,47 +110,69 @@ public class JfGenerator extends javax.swing.JFrame {
 
         jLabelColumns.setText("Columns :");
 
+        jTextAreaResult.setColumns(20);
+        jTextAreaResult.setRows(5);
+        jScrollPane3.setViewportView(jTextAreaResult);
+
+        jButtonSave.setText("Save file");
+        jButtonSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSaveActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelDatabaseLayout = new javax.swing.GroupLayout(jPanelDatabase);
         jPanelDatabase.setLayout(jPanelDatabaseLayout);
         jPanelDatabaseLayout.setHorizontalGroup(
             jPanelDatabaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelDatabaseLayout.createSequentialGroup()
-                .addGroup(jPanelDatabaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelDatabaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(jPanelDatabaseLayout.createSequentialGroup()
-                            .addComponent(jLabelDatabaseView)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabelDatabaseName))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButtonGenerate)
-                    .addComponent(jLabelTables))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
-                .addGroup(jPanelDatabaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelColumns)
-                    .addGroup(jPanelDatabaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButtonDisconnect, javax.swing.GroupLayout.Alignment.TRAILING)))
-                .addContainerGap())
+                .addGroup(jPanelDatabaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanelDatabaseLayout.createSequentialGroup()
+                        .addGroup(jPanelDatabaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelTables)
+                            .addComponent(jButtonGenerate, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanelDatabaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelColumns)
+                            .addComponent(jButtonSave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanelDatabaseLayout.createSequentialGroup()
+                        .addGroup(jPanelDatabaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(jPanelDatabaseLayout.createSequentialGroup()
+                                .addComponent(jLabelDatabaseView)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabelDatabaseName))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanelDatabaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonDisconnect))))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 524, Short.MAX_VALUE))
         );
         jPanelDatabaseLayout.setVerticalGroup(
             jPanelDatabaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDatabaseLayout.createSequentialGroup()
+            .addGroup(jPanelDatabaseLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanelDatabaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonDisconnect)
-                    .addComponent(jLabelDatabaseName)
-                    .addComponent(jLabelDatabaseView))
-                .addGap(8, 8, 8)
-                .addGroup(jPanelDatabaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelTables)
-                    .addComponent(jLabelColumns))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelDatabaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                .addComponent(jButtonGenerate)
-                .addGap(20, 20, 20))
+                    .addGroup(jPanelDatabaseLayout.createSequentialGroup()
+                        .addGroup(jPanelDatabaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButtonDisconnect)
+                            .addComponent(jLabelDatabaseName)
+                            .addComponent(jLabelDatabaseView))
+                        .addGap(8, 8, 8)
+                        .addGroup(jPanelDatabaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabelTables)
+                            .addComponent(jLabelColumns))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanelDatabaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                        .addGroup(jPanelDatabaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButtonGenerate)
+                            .addComponent(jButtonSave))
+                        .addGap(20, 20, 20))
+                    .addComponent(jScrollPane3)))
         );
 
         jLabelServer.setText("Serveur");
@@ -197,7 +223,7 @@ public class JfGenerator extends javax.swing.JFrame {
                             .addComponent(jTextFieldLogin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jPasswordField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jTextFieldDatabase, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(67, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelConnectionLayout.setVerticalGroup(
             jPanelConnectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -231,10 +257,10 @@ public class JfGenerator extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanelConnection, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(292, Short.MAX_VALUE)
+                .addComponent(jPanelConnection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(285, 285, 285))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
@@ -243,10 +269,10 @@ public class JfGenerator extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(layout.createSequentialGroup()
+                .addGap(64, 64, 64)
                 .addComponent(jPanelConnection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(129, Short.MAX_VALUE))
+                .addContainerGap(76, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
@@ -328,11 +354,22 @@ public class JfGenerator extends javax.swing.JFrame {
     private void jButtonGenerateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGenerateActionPerformed
         String tableName = jListTables.getSelectedValue();
         try {
-            GenerateController.generate(tableName, cnx);
+            String generatedClass = GenerateController.generateClass(tableName, cnx);
+            jTextAreaResult.setText(generatedClass);
         } catch (IOException ex) {
             Logger.getLogger(JfGenerator.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButtonGenerateActionPerformed
+
+    private void jButtonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaveActionPerformed
+        String contentFile = jTextAreaResult.getText();
+        String tableName = jListTables.getSelectedValue();
+        try {
+            FileController.createFile(contentFile, tableName);
+        } catch (IOException ex) {
+            Logger.getLogger(JfGenerator.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButtonSaveActionPerformed
 
     /**
      * @param args the command line arguments
@@ -376,6 +413,7 @@ public class JfGenerator extends javax.swing.JFrame {
     private javax.swing.JButton jButtonConnect;
     private javax.swing.JButton jButtonDisconnect;
     private javax.swing.JButton jButtonGenerate;
+    private javax.swing.JButton jButtonSave;
     private javax.swing.JLabel jLabelColumns;
     private javax.swing.JLabel jLabelDatabase;
     private javax.swing.JLabel jLabelDatabaseName;
@@ -392,6 +430,8 @@ public class JfGenerator extends javax.swing.JFrame {
     private javax.swing.JPasswordField jPasswordField;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTextArea jTextAreaResult;
     private javax.swing.JTextField jTextFieldDatabase;
     private javax.swing.JTextField jTextFieldLogin;
     private javax.swing.JTextField jTextFieldPort;
