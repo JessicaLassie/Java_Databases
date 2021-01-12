@@ -83,10 +83,10 @@ public class GenerateController {
             } else {
                 attribute = mapentry.getKey().toString().substring(0,posAttribute).toLowerCase() + mapentry.getKey().toString().substring(posAttribute+1,posAttribute+2).toUpperCase() + mapentry.getKey().toString().substring(posAttribute+2).toLowerCase();
             }
-            String getterAttribute = attribute.substring(0,1).toUpperCase() + attribute.substring(1);
+            String accessorsAttribute = attribute.substring(0,1).toUpperCase() + attribute.substring(1);
             properties += "private " + mapentry.getValue().toString() + " " + attribute + ";\n";
-            getters += "public " + mapentry.getValue().toString() + " get" + getterAttribute + "() {\n" + "\t" + "return " + attribute + ";\n}\n\n";
-            setters += "public void set" + getterAttribute + "(" + mapentry.getValue().toString() + " " + attribute + ") {\n" + "\t" + "this." + attribute + " = " + attribute + ";\n}\n\n";
+            getters += "public " + mapentry.getValue().toString() + " get" + accessorsAttribute + "() {\n" + "\t" + "return " + attribute + ";\n}\n\n";
+            setters += "public void set" + accessorsAttribute + "(" + mapentry.getValue().toString() + " " + attribute + ") {\n" + "\t" + "this." + attribute + " = " + attribute + ";\n}\n\n";
         }
       
         String generatedClass = "/*\n" +
