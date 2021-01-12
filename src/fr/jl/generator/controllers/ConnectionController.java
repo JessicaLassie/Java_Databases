@@ -15,8 +15,7 @@ import java.sql.SQLException;
 public class ConnectionController {
     
     public static Connection getConnection(String server, String port, String database, String login, char[] password) throws SQLException {
-        //String url = "jdbc:mysql://" + server + ":" + port + "/" + database;
-        String url = "jdbc:mysql://mysql-kica.alwaysdata.net:3306/kica_mediatheque";
+        String url = "jdbc:mysql://" + server + ":" + port + "/" + database;
         Connection cnx = DriverManager.getConnection(url, login, new String(password));
         return cnx;
     }
