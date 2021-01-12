@@ -73,6 +73,7 @@ public class GenerateController {
         
         String properties = "";
         String getters = "";
+        String setters = "";
         
         for (Map.Entry mapentry : attributesMap.entrySet()) {   
             String attribute;
@@ -85,6 +86,7 @@ public class GenerateController {
             String getterAttribute = attribute.substring(0,1).toUpperCase() + attribute.substring(1);
             properties += "private " + mapentry.getValue().toString() + " " + attribute + ";\n";
             getters += "public " + mapentry.getValue().toString() + " get" + getterAttribute + "() {\n" + "\t" + "return " + attribute + ";\n}\n\n";
+            setters += "public void set" + getterAttribute + "(" + mapentry.getValue().toString() + " " + attribute + ") {\n" + "\t" + "this." + attribute + " = " + attribute + ";\n}\n\n";
         }
       
         String generatedClass = "/*\n" +
@@ -106,7 +108,12 @@ public class GenerateController {
         "public " + className + "() {\n" +
         "}\n" +
         "\n" +
+        "//*****GETTERS*****//\n" +
+        "\n" +       
         getters +
+        "//*****SETTERS*****//\n" +
+        "\n" +
+        setters +
         "}"
         ;
         
