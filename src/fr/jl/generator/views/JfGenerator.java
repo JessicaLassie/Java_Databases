@@ -13,8 +13,6 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 
 /**
@@ -33,7 +31,9 @@ public class JfGenerator extends javax.swing.JFrame {
         setLocationRelativeTo(null);  
         jTextFieldServer.setText("mysql-kica.alwaysdata.net");
         jTextFieldPort.setText("3306");
-        jPanelDatabase.setVisible(false);      
+        jPanelDatabase.setVisible(false);
+        jDialog.setSize(400, 150);
+        jDialog.setLocationRelativeTo(null);
     }
     
     /**
@@ -45,18 +45,9 @@ public class JfGenerator extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanelConnection = new javax.swing.JPanel();
-        jTextFieldServer = new javax.swing.JTextField();
-        jLabelServer = new javax.swing.JLabel();
-        jTextFieldPort = new javax.swing.JTextField();
-        jLabelPort = new javax.swing.JLabel();
-        jPasswordField = new javax.swing.JPasswordField();
-        jTextFieldLogin = new javax.swing.JTextField();
-        jLabelLogin = new javax.swing.JLabel();
-        jLabelPassword = new javax.swing.JLabel();
-        jButtonConnect = new javax.swing.JButton();
-        jLabelDatabase = new javax.swing.JLabel();
-        jTextFieldDatabase = new javax.swing.JTextField();
+        jDialog = new javax.swing.JDialog();
+        jButtonDialog = new javax.swing.JButton();
+        jLabelDialog = new javax.swing.JLabel();
         jPanelDatabase = new javax.swing.JPanel();
         jButtonGenerate = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -71,87 +62,56 @@ public class JfGenerator extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         jTextAreaResult = new javax.swing.JTextArea();
         jButtonSave = new javax.swing.JButton();
+        jPanelConnection = new javax.swing.JPanel();
+        jTextFieldServer = new javax.swing.JTextField();
+        jLabelServer = new javax.swing.JLabel();
+        jTextFieldPort = new javax.swing.JTextField();
+        jLabelPort = new javax.swing.JLabel();
+        jPasswordField = new javax.swing.JPasswordField();
+        jTextFieldLogin = new javax.swing.JTextField();
+        jLabelLogin = new javax.swing.JLabel();
+        jLabelPassword = new javax.swing.JLabel();
+        jButtonConnect = new javax.swing.JButton();
+        jLabelDatabase = new javax.swing.JLabel();
+        jTextFieldDatabase = new javax.swing.JTextField();
+
+        jDialog.setTitle("Error");
+
+        jButtonDialog.setText("OK");
+        jButtonDialog.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDialogActionPerformed(evt);
+            }
+        });
+
+        jLabelDialog.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+        javax.swing.GroupLayout jDialogLayout = new javax.swing.GroupLayout(jDialog.getContentPane());
+        jDialog.getContentPane().setLayout(jDialogLayout);
+        jDialogLayout.setHorizontalGroup(
+            jDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDialogLayout.createSequentialGroup()
+                .addGap(202, 202, 202)
+                .addComponent(jButtonDialog)
+                .addContainerGap(202, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDialogLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabelDialog, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jDialogLayout.setVerticalGroup(
+            jDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDialogLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabelDialog, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButtonDialog)
+                .addGap(191, 191, 191))
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Generator");
         setResizable(false);
-
-        jLabelServer.setText("Serveur");
-
-        jLabelPort.setText("Port");
-
-        jLabelLogin.setText("Login");
-
-        jLabelPassword.setText("Password");
-
-        jButtonConnect.setText("Connect");
-        jButtonConnect.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonConnectActionPerformed(evt);
-            }
-        });
-
-        jLabelDatabase.setText("Database");
-
-        javax.swing.GroupLayout jPanelConnectionLayout = new javax.swing.GroupLayout(jPanelConnection);
-        jPanelConnection.setLayout(jPanelConnectionLayout);
-        jPanelConnectionLayout.setHorizontalGroup(
-            jPanelConnectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelConnectionLayout.createSequentialGroup()
-                .addGap(287, 287, 287)
-                .addGroup(jPanelConnectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanelConnectionLayout.createSequentialGroup()
-                        .addGroup(jPanelConnectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanelConnectionLayout.createSequentialGroup()
-                                .addGroup(jPanelConnectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabelDatabase)
-                                    .addComponent(jLabelServer))
-                                .addGap(44, 44, 44))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelConnectionLayout.createSequentialGroup()
-                                .addComponent(jLabelPort)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                        .addGroup(jPanelConnectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextFieldPort)
-                            .addComponent(jTextFieldServer, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanelConnectionLayout.createSequentialGroup()
-                        .addGroup(jPanelConnectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelLogin)
-                            .addComponent(jLabelPassword))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanelConnectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextFieldLogin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPasswordField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jTextFieldDatabase, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonConnect, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(290, Short.MAX_VALUE))
-        );
-        jPanelConnectionLayout.setVerticalGroup(
-            jPanelConnectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelConnectionLayout.createSequentialGroup()
-                .addGap(114, 114, 114)
-                .addGroup(jPanelConnectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldServer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelServer))
-                .addGap(18, 18, 18)
-                .addGroup(jPanelConnectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldPort, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelPort))
-                .addGap(18, 18, 18)
-                .addGroup(jPanelConnectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelDatabase)
-                    .addComponent(jTextFieldDatabase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(19, 19, 19)
-                .addGroup(jPanelConnectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelLogin))
-                .addGap(18, 18, 18)
-                .addGroup(jPanelConnectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelPassword))
-                .addGap(28, 28, 28)
-                .addComponent(jButtonConnect)
-                .addContainerGap(140, Short.MAX_VALUE))
-        );
 
         jButtonGenerate.setText("Generate POJO");
         jButtonGenerate.addActionListener(new java.awt.event.ActionListener() {
@@ -251,6 +211,83 @@ public class JfGenerator extends javax.swing.JFrame {
             .addComponent(jScrollPane3)
         );
 
+        jLabelServer.setText("Server *");
+
+        jLabelPort.setText("Port *");
+
+        jLabelLogin.setText("Login *");
+
+        jLabelPassword.setText("Password");
+
+        jButtonConnect.setText("Connect");
+        jButtonConnect.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonConnectActionPerformed(evt);
+            }
+        });
+
+        jLabelDatabase.setText("Database *");
+
+        javax.swing.GroupLayout jPanelConnectionLayout = new javax.swing.GroupLayout(jPanelConnection);
+        jPanelConnection.setLayout(jPanelConnectionLayout);
+        jPanelConnectionLayout.setHorizontalGroup(
+            jPanelConnectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelConnectionLayout.createSequentialGroup()
+                .addGap(287, 287, 287)
+                .addGroup(jPanelConnectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanelConnectionLayout.createSequentialGroup()
+                        .addGroup(jPanelConnectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanelConnectionLayout.createSequentialGroup()
+                                .addGroup(jPanelConnectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabelDatabase)
+                                    .addComponent(jLabelServer))
+                                .addGap(44, 44, 44))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelConnectionLayout.createSequentialGroup()
+                                .addComponent(jLabelPort)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                        .addGroup(jPanelConnectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTextFieldPort)
+                            .addComponent(jTextFieldServer, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanelConnectionLayout.createSequentialGroup()
+                        .addGroup(jPanelConnectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelLogin)
+                            .addComponent(jLabelPassword))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanelConnectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextFieldLogin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPasswordField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jTextFieldDatabase, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonConnect, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(281, Short.MAX_VALUE))
+        );
+        jPanelConnectionLayout.setVerticalGroup(
+            jPanelConnectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelConnectionLayout.createSequentialGroup()
+                .addGap(114, 114, 114)
+                .addGroup(jPanelConnectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextFieldServer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelServer))
+                .addGap(18, 18, 18)
+                .addGroup(jPanelConnectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextFieldPort, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelPort))
+                .addGap(18, 18, 18)
+                .addGroup(jPanelConnectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelDatabase)
+                    .addComponent(jTextFieldDatabase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(19, 19, 19)
+                .addGroup(jPanelConnectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextFieldLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelLogin))
+                .addGap(18, 18, 18)
+                .addGroup(jPanelConnectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelPassword))
+                .addGap(28, 28, 28)
+                .addComponent(jButtonConnect)
+                .addContainerGap(140, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -287,30 +324,40 @@ public class JfGenerator extends javax.swing.JFrame {
         String database = jTextFieldDatabase.getText();
         String login = jTextFieldLogin.getText();
         char[] password = jPasswordField.getPassword();
-
-        try {
-            cnx = ConnectionController.getConnection(server, port, database, login, password);  
-        } catch (SQLException ex) {
-            Logger.getLogger(JfGenerator.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        if (cnx != null) {
-            jPanelConnection.setVisible(false);
-            jPanelDatabase.setVisible(true);
-            jLabelDatabaseName.setText(database);
+        if (server.isEmpty() || port.isEmpty() || database.isEmpty() || login.isEmpty()) {
+            jDialog.setVisible(true);
+            jDialog.setTitle("Error");
+            jLabelDialog.setText("Server, port, database and login are mandatory");
+        } else {          
             try {
-                String[] types = {"TABLE"};
-                ResultSet res = cnx.getMetaData().getTables(null, null, "%", types);
-                DefaultListModel<String> dlm = new DefaultListModel<>(); 
-                while(res.next()) {
-                    String tableName = res.getString(3);
-                    dlm.addElement(tableName);
-                    jListTables.setModel(dlm);
+                cnx = ConnectionController.getConnection(server, port, database, login, password);  
+            } catch (SQLException e) {
+                jDialog.setVisible(true);
+                jDialog.setTitle("Error");
+                jLabelDialog.setText(e.getMessage());
+            }
+
+            if (cnx != null) {
+                jPanelConnection.setVisible(false);
+                jPanelDatabase.setVisible(true);
+                jLabelDatabaseName.setText(database);
+                try {
+                    String[] types = {"TABLE"};
+                    ResultSet res = cnx.getMetaData().getTables(null, null, "%", types);
+                    DefaultListModel<String> dlm = new DefaultListModel<>(); 
+                    while(res.next()) {
+                        String tableName = res.getString(3);
+                        dlm.addElement(tableName);
+                        jListTables.setModel(dlm);
+                    }
+                } catch (SQLException e) {
+                    jDialog.setVisible(true);
+                    jDialog.setTitle("Error");
+                    jLabelDialog.setText(e.getMessage());
                 }
-            } catch (SQLException ex) {
-                Logger.getLogger(JfGenerator.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        
             
         
     }//GEN-LAST:event_jButtonConnectActionPerformed
@@ -326,16 +373,20 @@ public class JfGenerator extends javax.swing.JFrame {
                 dlm.addElement(columnName);
                 jListColumns.setModel(dlm);
             }
-        } catch (SQLException ex) {
-            System.out.println(ex);
-        }       
+        } catch (SQLException e) {
+            jDialog.setVisible(true);
+            jDialog.setTitle("Error");
+            jLabelDialog.setText(e.getMessage());
+        }   
     }//GEN-LAST:event_jListTablesValueChanged
 
     private void jButtonDisconnectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDisconnectActionPerformed
         try {
             cnx = ConnectionController.disconnect(cnx);
-        } catch (SQLException ex) {
-            Logger.getLogger(JfGenerator.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException e) {
+            jDialog.setVisible(true);
+            jDialog.setTitle("Error");
+            jLabelDialog.setText(e.getMessage());
         }
         
         if (cnx == null) {
@@ -354,8 +405,10 @@ public class JfGenerator extends javax.swing.JFrame {
         try {
             String generatedClass = GenerateController.generateClass(tableName, cnx);
             jTextAreaResult.setText(generatedClass);
-        } catch (IOException ex) {
-            Logger.getLogger(JfGenerator.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException e) {
+            jDialog.setVisible(true);
+            jDialog.setTitle("Error");
+            jLabelDialog.setText(e.getMessage());
         }
     }//GEN-LAST:event_jButtonGenerateActionPerformed
 
@@ -364,10 +417,19 @@ public class JfGenerator extends javax.swing.JFrame {
         String tableName = jListTables.getSelectedValue();
         try {
             FileController.createFile(contentFile, tableName);
-        } catch (IOException ex) {
-            Logger.getLogger(JfGenerator.class.getName()).log(Level.SEVERE, null, ex);
+            jDialog.setVisible(true);
+            jDialog.setTitle("Success");
+            jLabelDialog.setText("Success");
+        } catch (IOException e) {
+            jDialog.setVisible(true);
+            jDialog.setTitle("Error");
+            jLabelDialog.setText(e.getMessage());
         }
     }//GEN-LAST:event_jButtonSaveActionPerformed
+
+    private void jButtonDialogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDialogActionPerformed
+        jDialog.setVisible(false);
+    }//GEN-LAST:event_jButtonDialogActionPerformed
 
     /**
      * @param args the command line arguments
@@ -409,13 +471,16 @@ public class JfGenerator extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonConnect;
+    private javax.swing.JButton jButtonDialog;
     private javax.swing.JButton jButtonDisconnect;
     private javax.swing.JButton jButtonGenerate;
     private javax.swing.JButton jButtonSave;
+    private javax.swing.JDialog jDialog;
     private javax.swing.JLabel jLabelColumns;
     private javax.swing.JLabel jLabelDatabase;
     private javax.swing.JLabel jLabelDatabaseName;
     private javax.swing.JLabel jLabelDatabaseView;
+    private javax.swing.JLabel jLabelDialog;
     private javax.swing.JLabel jLabelLogin;
     private javax.swing.JLabel jLabelPassword;
     private javax.swing.JLabel jLabelPort;

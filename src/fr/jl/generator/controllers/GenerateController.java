@@ -23,7 +23,7 @@ public class GenerateController {
     public static String generateClass(String tableName, Connection cnx) throws IOException {
         
         String className = Utils.createClassName(tableName);
-        
+
         Map<String, String> typesMap = new HashMap<>();
         typesMap.put("ARRAY", "Array");
         typesMap.put("BIGINT", "long");
